@@ -44,6 +44,10 @@
         });
     </script> -->
     <style>
+      /*body {*/
+        /*background-image: url("bg.jpg");*/
+      /*}*/
+
       .large-font{
         font-size: 30px;
         text-align: center;
@@ -65,7 +69,7 @@
     <br>
       <h1>Donation Progress</h1>
         <div class="progress">
-          <div class="progress-bar progress-bar-striped active large-font" role="progressbar" aria-valuenow="0" aria-valuemin="100" aria-valuemax="100" v-bind:style="{ 'width':bitcoinBalance+'%'}">
+          <div class="progress-bar progress-bar-striped active large-font" role="progressbar" aria-valuenow="0" aria-valuemin="100" aria-valuemax="100" v-bind:style="{ 'width':percentage+'%'}">
 
           </div>
         </div>
@@ -111,7 +115,6 @@ ui+vvEsk5tRrb6ljuiMwO/sKp8N8m0l5IRwW7QzPkRQmkicL41VE65tSTVWUxYtc
 -----END PGP SIGNATURE-----
 </pre>
 <br>
-<button v-on:click="getFundsRaisedInBTC">test</button>
         </div>
       </div>
 
@@ -140,15 +143,12 @@ ui+vvEsk5tRrb6ljuiMwO/sKp8N8m0l5IRwW7QzPkRQmkicL41VE65tSTVWUxYtc
         };
       },
       mounted: function() {
-         this.getBitcoinBalance()
-          this.getDashBalance()
-          this.getLitecoinBalance()
-          this.getEthereumBalance()
-          this.getFundsRaisedInBTC()
+        this.getBitcoinBalance(this.getFundsRaisedInBTC)
+        //this.getFundsRaisedInBTC(this.getBitcoinBalance)
       },
       methods: {
 
-        getBitcoinBalance: function() {
+        getBitcoinBalance: function(callback) {
           console.log("getting btc balance")
           axios.get('https://insight.bitpay.com/api/addr/'+this.bitcoinAddress)
           .then(response =>  {
@@ -156,36 +156,31 @@ ui+vvEsk5tRrb6ljuiMwO/sKp8N8m0l5IRwW7QzPkRQmkicL41VE65tSTVWUxYtc
           }).catch(error => {
             console.log(error)
           })
-        },
 
-        getDashBalance: function() {
           axios.get('https://insight.dash.org/insight-api/addr/'+this.dashAddress)
-          .then(response =>  {
-            this.dashBalance = response.data.totalReceived
-            console.log(this.dashBalance)
-          }).catch(error => {
+                  .then(response =>  {
+                    this.dashBalance = response.data.totalReceived
+                  }).catch(error => {
             console.log(error)
           })
-        },
 
-        getLitecoinBalance: function() {
           axios.get('https://insight.litecore.io/api/addr/'+this.litecoinAddress)
-          .then(response =>  {
-            this.litecoinBalance = response.data.totalReceived
-            console.log(this.litecoinBalance)
-          }).catch(error => {
+                  .then(response =>  {
+                    this.litecoinBalance = response.data.totalReceived
+                  }).catch(error => {
             console.log(error)
           })
-        },
 
-        getEthereumBalance: function() {
+
           axios.get('https://api.etherscan.io/api?module=account&action=balance&address='+this.ethereumAddress)
-          .then(response =>  {
-            this.ethereumBalance = response.data.result / 1000000000000000000
-            console.log(this.ethereumBalance)
-          }).catch(error => {
+                  .then(response =>  {
+                    this.ethereumBalance = response.data.result / 1000000000000000000
+                  }).catch(error => {
             console.log(error)
           })
+
+          callback()
+          //this.getFundsRaisedInBTC()
         },
 
         getFundsRaisedInBTC: function() {
@@ -196,14 +191,11 @@ ui+vvEsk5tRrb6ljuiMwO/sKp8N8m0l5IRwW7QzPkRQmkicL41VE65tSTVWUxYtc
             this.totalBitcoinsRaised += markets[0].Price * this.dashBalance
             this.totalBitcoinsRaised += markets[1].Price * this.litecoinBalance
             this.totalBitcoinsRaised += markets[2].Price * this.ethereumBalance
-
-
-            this.percentage = 100 / (this.goalBTC * this.totalBitcoinsRaised)
+            this.percentage = (this.totalBitcoinsRaised * this.goalBTC) * 100
           }).catch(error => {
             console.log(error)
           })
-        }
-
+        },
       }
     });
   </script>
