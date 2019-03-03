@@ -63,9 +63,10 @@
     <img v-bind:src= "'https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl' + litecoinAddress" alt="viacoin litecoin donation address">
 
     <p class="card-text">ETH: {{ ethereumAddress}}</p>
-    <img v-bind:src= "'https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl' + ethereumAddress" alt="viacoin donation address">
+    <img v-bind:src= "'https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl' + ethereumAddress" alt="viacoin ethereum donation address">
 
     <p class="card-text">VIA: {{ viacoinAddress}}</p>
+    <img v-bind:src= "'https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl' + viacoinAddress" alt="viacoin donation address">
     <center><a href="https://viacoin.org" class="btn btn-primary" style="margin-top: 5%">Visit the Viacoin website</a></center>
   </div>
 </div>
@@ -121,6 +122,7 @@ vaFWZMmlKBFI89D0FU1aQ/FmX0B8pg==
           ethereumAddress: "0x39f58a1Fd1b7aB742fF5A32670831EAb06D7f7c1",
           viacoinAddress: "Vnr3CRQZQPWU91B7JS8RfQJjib4KDE5kMs",
           bitcoinBalance: 0,
+          viacoinBalance: 0,
           dashBalance: 0,
           litecoinBalance: 0,
           ethereumBalance: 0,
@@ -135,28 +137,32 @@ vaFWZMmlKBFI89D0FU1aQ/FmX0B8pg==
           console.log("getting btc balance")
 
           axios.all([axios.get('https://insight.bitpay.com/api/addr/'+this.bitcoinAddress),
+            axios.get('https://explorer.viacoin.org/api/addr/'+this.viacoinAddress),
             axios.get('https://insight.dash.org/insight-api/addr/'+this.dashAddress),
             axios.get('https://insight.litecore.io/api/addr/'+this.litecoinAddress),
             axios.get('https://api.etherscan.io/api?module=account&action=balance&address='+this.ethereumAddress)])
-          .then(axios.spread(function (firstResponse, secondResponse, thirdResponse, fourthResponse) {
-            ethereumBalance = fourthResponse.data.result / 1000000000000000000
-            callback(firstResponse.data.totalReceived, secondResponse.data.totalReceived, thirdResponse.data.totalReceived, ethereumBalance)
+          .then(axios.spread(function (firstResponse, secondResponse, thirdResponse, fourthResponse, fifthResponse) {
+            ethereumBalance = fifthResponse.data.result / 1000000000000000000
+            callback(firstResponse.data.totalReceived, secondResponse.data.totalReceived, thirdResponse.data.totalReceived, fourthResponse.data.totalReceived, ethereumBalance)
           }))
         },
 
-        getRaisedFundsInBTC: function(bitcoin, dash, litecoin, ethereum) {
+        getRaisedFundsInBTC: function(bitcoin, viacoin, dash, litecoin, ethereum) {
           this.bitcoinBalance = bitcoin
+          this.viacoinBalance = viacoin
           this.dashBalance = dash
           this.litecoinBalance = litecoin
           this.ethereumBalance = ethereum
 
-            axios.get('https://www.worldcoinindex.com/apiservice/ticker?key=TMVEUGZjmAKnIgFg1gmJx7SVk&label=dashbtc-ltcbtc-ethbtc&fiat=btc')
+            axios.get('https://www.worldcoinindex.com/apiservice/ticker?key=TMVEUGZjmAKnIgFg1gmJx7SVk&label=viabtc-dashbtc-ltcbtc-ethbtc&fiat=btc')
             .then(response => {
+              console.log(this.litecoinBalance)
               markets = response.data.Markets
               this.totalBitcoinsRaised = this.bitcoinBalance
-              this.totalBitcoinsRaised += markets[0].Price * this.dashBalance
-              this.totalBitcoinsRaised += markets[1].Price * this.litecoinBalance
-              this.totalBitcoinsRaised += markets[2].Price * this.ethereumBalance
+              this.totalBitcoinsRaised += markets[0].Price * this.viacoinBalance
+              this.totalBitcoinsRaised += markets[1].Price * this.dashBalance
+              this.totalBitcoinsRaised += markets[2].Price * this.litecoinBalance
+              this.totalBitcoinsRaised += markets[3].Price * this.ethereumBalance
               this.percentage = (this.totalBitcoinsRaised * this.goalBTC) * 100
             }).catch(error => {
               console.log(error)
@@ -172,4 +178,11 @@ vaFWZMmlKBFI89D0FU1aQ/FmX0B8pg==
 <!--dashAddress: "XwMX5wWQ9sef6syhJJDZgjAfBeTC5PVvEv",-->
 <!--litecoinAddress: "LXTyesP2C1egvHQjjeFEnLkVdesirpozW3",-->
 <!--ethereumAddress: "0xa8b317Fd4f13EE571fE0B2C9051c3c89Eb5B7B1c",-->
+<!--viacoinAddress: "Vnr3CRQZQPWU91B7JS8RfQJjib4KDE5kMs",-->
+
+<!--real addresses-->
+<!--bitcoinAddress: "3E6MgSCAcanAe6NPXiNqWbypGzK4AyvYDL",-->
+<!--dashAddress: "Xpr5ZFS6skFU4VFu9SqpCNbEgWjzxpPZDj",-->
+<!--litecoinAddress: "MFGKd5jcAp2ZBGzfm4DVWSBB8bdGiaYZcD",-->
+<!--ethereumAddress: "0x39f58a1Fd1b7aB742fF5A32670831EAb06D7f7c1",-->
 <!--viacoinAddress: "Vnr3CRQZQPWU91B7JS8RfQJjib4KDE5kMs",-->
