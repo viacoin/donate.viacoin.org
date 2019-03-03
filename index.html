@@ -53,14 +53,19 @@
     exchange listings, being added to third party wallets, being added to iVendPay and more. A large sum of the required funds have been paid for by the development team and a few large Viacoin holders. Receiving more community donations would significantly help Viacoin grow and show the cryptocurrency space Viacoin's full potential.</p>
     <p class="card-title">We calculate the amount in bitcoin</p>
     <br>
-    <p class="card-text">BTC: 1C3wt6mGgKVkaao6R6uuwMY3EtDGBwUVgo</p>
+    <p class="card-text">BTC: {{ bitcoinAddress }}</p>
     <img v-bind:src= "'https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl' + bitcoinAddress" alt="viacoin bitcoin donation address">
-    <p class="card-text">Dash: XwMX5wWQ9sef6syhJJDZgjAfBeTC5PVvEv</p>
+
+    <p class="card-text">Dash: {{ dashAddress }}</p>
     <img v-bind:src= "'https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl' + dashAddress" alt="viacoin dash donation address">
-    <p class="card-text">ETH: 0xa8b317Fd4f13EE571fE0B2C9051c3c89Eb5B7B1c</p>
-    <img v-bind:src= "'https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl' + ethereumAddress" alt="viacoin donation address">
-    <p class="card-text">LTC: LXTyesP2C1egvHQjjeFEnLkVdesirpozW3</p>
+
+    <p class="card-text">LTC: {{ litecoinAddress}}</p>
     <img v-bind:src= "'https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl' + litecoinAddress" alt="viacoin litecoin donation address">
+
+    <p class="card-text">ETH: {{ ethereumAddress}}</p>
+    <img v-bind:src= "'https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl' + ethereumAddress" alt="viacoin donation address">
+
+    <p class="card-text">VIA: {{ viacoinAddress}}</p>
     <center><a href="https://viacoin.org" class="btn btn-primary" style="margin-top: 5%">Visit the Viacoin website</a></center>
   </div>
 </div>
@@ -69,22 +74,21 @@
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
 
-BTC: 1C3wt6mGgKVkaao6R6uuwMY3EtDGBwUVgo
-Dash: XwMX5wWQ9sef6syhJJDZgjAfBeTC5PVvEv
-ETH: 0xa8b317Fd4f13EE571fE0B2C9051c3c89Eb5B7B1c
-LTC: LXTyesP2C1egvHQjjeFEnLkVdesirpozW3
-STRAT: SZ6mFNiuVyvkCwz6PBQaJjGpn6KvPnZsHz
-ZEC: t1Ntgd4u2HpZFUdsDqLietYGYmxxy1NorX8
+BTC: 3E6MgSCAcanAe6NPXiNqWbypGzK4AyvYDL
+VIA: Vnr3CRQZQPWU91B7JS8RfQJjib4KDE5kMs
+Dash: Xpr5ZFS6skFU4VFu9SqpCNbEgWjzxpPZDj
+LTC: MFGKd5jcAp2ZBGzfm4DVWSBB8bdGiaYZcD
+ETH: 0x39f58a1Fd1b7aB742fF5A32670831EAb06D7f7c1
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAEBCAAdFiEE+1u6Oha8avDSoh1hP5I2jw0hogYFAlme8TcACgkQP5I2jw0h
-ogaujQf/ToDYHlGLhVb/ba8VHKKT4Kf0BNhD4v6EM8SCjMcOq/DNIK+rReJp5H/g
-RPJDYoFewxpLln/0exaL5T9O4vFicIvKIT799Z61iPOuPjyFNyf7mPR/bgY1buRI
-j94v0/bj2owejVMm+Esu2I6IN9C4NSCseUA26c5PRLRdwCe6bABsOZYuYle0USVY
-ui+vvEsk5tRrb6ljuiMwO/sKp8N8m0l5IRwW7QzPkRQmkicL41VE65tSTVWUxYtc
-9bXbd/+ZHCsONj/1S8wcmk91ork4uADxFCbAAhroz96HXsz+TEgvn6wJbptYYlRQ
-5Y50eYW6eM5zpioDIGQo6FGInUf+4w==
-=QZWT
+iQEzBAEBCAAdFiEE+1u6Oha8avDSoh1hP5I2jw0hogYFAlx8PJ8ACgkQP5I2jw0h
+ogY89Af/Zmzn+W/J+8dXeAKcAkm4AYeZkymDItcbCWn0SP3KTY8+1WnDTaHGGMQr
+v+TMJ15/3VOc9IAEr+kbarKPUqd2UTSgieJ1dwoJsHskG4UoRnJ9ZTR17Z3KLkGN
+bnvx6bcvHxbYed1yoXTXd+WfJxskUV6gmqAtI1bZhoDTJuOIqh5SA3j3QoF7YuDS
+a7SKlB0og5wWWILGcS72av0Xy7MzoDSjxdoFyvMvTx35J6AiSPETAF9Ut8Bmjn8A
+ptfb3tVShxUfthfo85KehQ/IpFWjNJOWZ9zZNXqooU9ZO3ivmT6/SUXraN7WVSpF
+vaFWZMmlKBFI89D0FU1aQ/FmX0B8pg==
+=SAjQ
 -----END PGP SIGNATURE-----
 </pre>
 <br>
@@ -111,10 +115,11 @@ ui+vvEsk5tRrb6ljuiMwO/sKp8N8m0l5IRwW7QzPkRQmkicL41VE65tSTVWUxYtc
           goalBTC: 0.3,
           totalBitcoinsRaised: 0,
           percentage: 0,
-          bitcoinAddress: "1C3wt6mGgKVkaao6R6uuwMY3EtDGBwUVgo",
-          dashAddress: "XwMX5wWQ9sef6syhJJDZgjAfBeTC5PVvEv",
-          litecoinAddress: "LXTyesP2C1egvHQjjeFEnLkVdesirpozW3",
-          ethereumAddress: "0xa8b317Fd4f13EE571fE0B2C9051c3c89Eb5B7B1c",
+          bitcoinAddress: "3E6MgSCAcanAe6NPXiNqWbypGzK4AyvYDL",
+          dashAddress: "Xpr5ZFS6skFU4VFu9SqpCNbEgWjzxpPZDj",
+          litecoinAddress: "MFGKd5jcAp2ZBGzfm4DVWSBB8bdGiaYZcD",
+          ethereumAddress: "0x39f58a1Fd1b7aB742fF5A32670831EAb06D7f7c1",
+          viacoinAddress: "Vnr3CRQZQPWU91B7JS8RfQJjib4KDE5kMs",
           bitcoinBalance: 0,
           dashBalance: 0,
           litecoinBalance: 0,
@@ -161,3 +166,10 @@ ui+vvEsk5tRrb6ljuiMwO/sKp8N8m0l5IRwW7QzPkRQmkicL41VE65tSTVWUxYtc
     });
   </script>
 </html>
+
+<!--testing addresses-->
+<!--bitcoinAddress: "1C3wt6mGgKVkaao6R6uuwMY3EtDGBwUVgo",-->
+<!--dashAddress: "XwMX5wWQ9sef6syhJJDZgjAfBeTC5PVvEv",-->
+<!--litecoinAddress: "LXTyesP2C1egvHQjjeFEnLkVdesirpozW3",-->
+<!--ethereumAddress: "0xa8b317Fd4f13EE571fE0B2C9051c3c89Eb5B7B1c",-->
+<!--viacoinAddress: "Vnr3CRQZQPWU91B7JS8RfQJjib4KDE5kMs",-->
