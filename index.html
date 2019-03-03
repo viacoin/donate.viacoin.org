@@ -12,37 +12,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.7/vue.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-<!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
-    <!-- Custom styles for this template -->
-<!--     <script>
-        $(function() {
-            $.ajax({
-                dataType: "json",
-                url: "https://blockexplorer.com/api/addr/1C3wt6mGgKVkaao6R6uuwMY3EtDGBwUVgo",
-                success: function(data) {
-                    var percentage = parseFloat(data.totalReceived / 5.44 * 100).toFixed(2);
-                    $.ajax({
-                        dataType: "json",
-                        url: "https://api.blockcypher.com/v1/ltc/main/addrs/LXTyesP2C1egvHQjjeFEnLkVdesirpozW3",
-                        success: function(data) {
-                            var ltcpercentage = parseFloat(data.final_balance / 100000000 / 457.34 * 100).toFixed(2);
-                            //                    $(".progress-bar").css('width', percentage+"%");
-                            //                    $('.progress-bar').html(percentage+"%");
-                            $.ajax({
-                                url: "https://api.blockcypher.com/v1/dash/main/addrs/XwMX5wWQ9sef6syhJJDZgjAfBeTC5PVvEv",
-                                success: function(data) {
-                                    var dashpercentage = parseFloat(100 / 20000 * (data.final_balance / 100000000 * 356)).toFixed(2);
-                                    var totalpercentage = (parseFloat(percentage) + parseFloat(ltcpercentage) + parseFloat(dashpercentage)).toFixed(2);
-                                    $(".progress-bar").css('width', totalpercentage + "%");
-                                    $('.progress-bar').html(totalpercentage + "%");
-                                }
-                            });
-                        }
-                    });
-                }
-            });
-        });
-    </script> -->
     <style>
       /*body {*/
         /*background-image: url("bg.jpg");*/
@@ -92,7 +61,7 @@
     <img v-bind:src= "'https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl' + viacoinAddress" alt="viacoin donation address">
     <p class="card-text">LTC: LXTyesP2C1egvHQjjeFEnLkVdesirpozW3</p>
     <img v-bind:src= "'https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl' + litecoinAddress" alt="viacoin litecoin donation address">
-    <center><a href="https://viacoin.org" class="btn btn-primary" style="margin-top: 20%">Visit the Viacoin website</a></center>
+    <center><a href="https://viacoin.org" class="btn btn-primary" style="margin-top: 5%">Visit the Viacoin website</a></center>
   </div>
 </div>
 <br>
