@@ -136,10 +136,10 @@ ui+vvEsk5tRrb6ljuiMwO/sKp8N8m0l5IRwW7QzPkRQmkicL41VE65tSTVWUxYtc
           dashAddress: "XwMX5wWQ9sef6syhJJDZgjAfBeTC5PVvEv",
           litecoinAddress: "LXTyesP2C1egvHQjjeFEnLkVdesirpozW3",
           ethereumAddress: "0xa8b317Fd4f13EE571fE0B2C9051c3c89Eb5B7B1c",
-          bitcoinBalance: 0,
-          dashBalance: 0,
-          litecoinBalance: 0,
-          ethereumBalance: 0,
+          bitcoinBalance: -1,
+          dashBalance: -1,
+          litecoinBalance: -1,
+          ethereumBalance: -1,
         };
       },
       mounted: function() {
@@ -152,21 +152,24 @@ ui+vvEsk5tRrb6ljuiMwO/sKp8N8m0l5IRwW7QzPkRQmkicL41VE65tSTVWUxYtc
           console.log("getting btc balance")
           axios.get('https://insight.bitpay.com/api/addr/'+this.bitcoinAddress)
           .then(response =>  {
-            this.bitcoinBalance = response.data.totalReceived
+            this.bitcoinBalance = response.data.totalReceived;
+            callback();
           }).catch(error => {
             console.log(error)
           })
 
           axios.get('https://insight.dash.org/insight-api/addr/'+this.dashAddress)
                   .then(response =>  {
-                    this.dashBalance = response.data.totalReceived
+                    this.dashBalance = response.data.totalReceived;
+                    callback();
                   }).catch(error => {
             console.log(error)
           })
 
           axios.get('https://insight.litecore.io/api/addr/'+this.litecoinAddress)
                   .then(response =>  {
-                    this.litecoinBalance = response.data.totalReceived
+                    this.litecoinBalance = response.data.totalReceived;
+                    callback();
                   }).catch(error => {
             console.log(error)
           })
@@ -174,16 +177,22 @@ ui+vvEsk5tRrb6ljuiMwO/sKp8N8m0l5IRwW7QzPkRQmkicL41VE65tSTVWUxYtc
 
           axios.get('https://api.etherscan.io/api?module=account&action=balance&address='+this.ethereumAddress)
                   .then(response =>  {
-                    this.ethereumBalance = response.data.result / 1000000000000000000
+                    this.ethereumBalance = response.data.result / 1000000000000000000;
+                    callback();
                   }).catch(error => {
             console.log(error)
           })
 
-          callback()
+          // await those 4 calls to end
+          
           //this.getFundsRaisedInBTC()
         },
 
         getFundsRaisedInBTC: function() {
+          if (this.bitcoinBalance >= 0 && this.dashBalance >= 0 && this.litecoinBalance >= 0 && this.ethereumBalance >= 0) {
+            return; // only the last call when balances are set will go through
+          }
+
           axios.get('https://www.worldcoinindex.com/apiservice/ticker?key=TMVEUGZjmAKnIgFg1gmJx7SVk&label=dashbtc-ltcbtc-ethbtc&fiat=btc')
           .then(response => {
             markets = response.data.Markets
@@ -200,3 +209,5 @@ ui+vvEsk5tRrb6ljuiMwO/sKp8N8m0l5IRwW7QzPkRQmkicL41VE65tSTVWUxYtc
     });
   </script>
 </html>
+
+<3
